@@ -1,0 +1,49 @@
+/*
+* Author   : Sachin Sabu
+* Purpose  : Coding Challenge
+*        
+* Revision Ref Number  Release No  Date            Modified By     Description
+* -------- ----------  ----------  -----------     ------------    -----------
+
+*/
+public class CodingChallenge {
+    private Map<Integer, List<Integer>> mapNodes = new Map<Integer, List<Integer>>();
+
+    public void connect(Integer nodeA, Integer nodeB){
+        
+        if(mapNodes.get(nodeA) == null){
+            addNode(nodeA);
+        } 
+        if(mapNodes.get(nodeB) == null){
+            addNode(nodeB);
+        }
+        mapNodes.get(nodeA).add(nodeB);
+        mapNodes.get(nodeB).add(nodeA);
+    }
+
+    public void addNode(Integer nodeValue){
+        if(mapNodes.get(nodeValue) == null){
+            mapNodes.put(nodeValue, new List<Integer>());
+        }
+    }
+	
+    public Boolean isConnected(Integer nodeA, Integer nodeB){
+        Set<Integer> setCheckedNodes = new Set<Integer>();
+        List<Integer> listNodes = new List<Integer>();
+        listNodes.add(nodeA);
+        
+        while(!listNodes.isEmpty()){
+            Integer node = listNodes.remove(listNodes.size() - 1);
+            if(!setCheckedNodes.contains(node)){
+                if(node == nodeB){
+                    return true;
+                }
+                setCheckedNodes.add(node);
+                for(Integer n : mapNodes.get(node)){
+                    listNodes.add(n);
+                }
+            }
+        }
+        return false;
+    }
+}
